@@ -12,7 +12,11 @@
   font-weight: 700;
   text-transform: uppercase;
 
-  font-family: Arial, Helvetica, sans-serif;
-
   box-sizing: border-box;
+
+  color: transparent;
+}
+
+.cell.filled {
+  color: #111;
 }

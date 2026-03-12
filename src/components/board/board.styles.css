@@ -2,10 +2,6 @@
   display: grid;
   justify-content: center;
   margin-top: 40px;
-}
-
-.row-container {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 40px;
   gap: 8px;
 }

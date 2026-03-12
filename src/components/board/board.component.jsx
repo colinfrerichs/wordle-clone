@@ -7,11 +7,9 @@ import "./board.styles.css";
 const Board = ({ guesses, secretWord }) => {
   return (
     <div className="board-container">
-      <div className="row-container">
-        {guesses.map((guess, row) => (
-          <BoardRow key={`row-${row}`} guess={guess} secretWord={secretWord} />
-        ))}
-      </div>
+      {guesses.map((guess, row) => (
+        <BoardRow key={`row-${row}`} guess={guess} secretWord={secretWord} />
+      ))}
     </div>
   );
 };
