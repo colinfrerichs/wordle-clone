@@ -1,17 +1,35 @@
 export const getFeedback = (word, secretWord) => {
-    console.log("at least ive been called");
-    /*
-        so essentially - we have to check every letter
-        return a {letter, style}
+    const wordLetters = word.split("");
+    const styles = Array(5).fill("red");
+    const secretPool = new Map();
 
-        the style is green - in correct place, so we check for that first
-        the yellow means it's in the word, but in the wrong place
-        the red means it is not in the word
+    secretWord.split("").forEach((letter) => {
+        if (secretPool.has(letter)) {
+            secretPool.set(letter, secretPool.get(letter) + 1);
+        } else {
+            secretPool.set(letter, 1);
+        }
+    });
 
-        so, i think it's if the secretWord includes the letter ->
-        check if the letter is in the right place
+    wordLetters.forEach((letter, idx) => {
+        if (letter === secretWord[idx]) {
+            styles[idx] = "green";
 
-        if it is, green
-        if it is not, red
-    */
+            const count = secretPool.get(letter);
+
+            if (count === 1) {
+                secretPool.delete(letter);
+            } else {
+                secretPool.set(letter, count - 1);
+            }
+        }
+    });
+
+    wordLetters.forEach((letter, idx) => {
+        if (secretPool.has(letter)) {
+            styles[idx] = 'yellow';
+        }
+    });
+
+    return { wordLetters, styles };
 }

@@ -9,17 +9,38 @@ import { getFeedback } from "./utility/getFeedback";
 import "./App.css";
 
 function App() {
-  const [guesses, setGuesses] = useState(Array(6).fill(""));
-  const [currentRow, setCurrentRow] = useState(0);
+  const createRow = () => ({
+    word: "",
+    letters: Array(5).fill(""),
+    styles: Array(5).fill("white"),
+  });
+
+  const [guesses, setGuesses] = useState(Array.from({ length: 6 }, createRow));
+  const [currentRow, setCurrentRow] = useState(1);
   const [gameOver, setGameOver] = useState(false);
   const [gameOverMessage, setGameOverMessage] = useState("");
-
   const { randomWord, loading: secretWordIsLoading } = useRandomWord();
 
   const handleSubmit = (guess) => {
-    if (currentRow > 6) return;
+    if (currentRow === 6) {
+      setGameOverMessage(`Game over. Secret word was: ${randomWord}.`);
+      setGameOver(true);
+    }
 
-    const feedBack = getFeedback(guess, randomWord);
+    const formattedGuess = guess.toLowerCase().trim();
+    const { wordLetters, styles } = getFeedback(formattedGuess, randomWord);
+
+    setGuesses((prev) => {
+      const next = [...prev];
+
+      next[currentRow - 1] = {
+        word: guess,
+        letters: wordLetters,
+        styles: styles,
+      };
+
+      return next;
+    });
     setCurrentRow((prev) => prev + 1);
   };
 
@@ -31,7 +52,7 @@ function App() {
         <div>
           <h1>Wordle Clone</h1>
           <Board guesses={guesses} />
-          <GuessInput onSubmit={handleSubmit} disabled={gameOver} />
+          <GuessInput onSubmit={handleSubmit} disableButton={gameOver} />
           {gameOver && <p>{gameOverMessage}</p>}
         </div>
       )}

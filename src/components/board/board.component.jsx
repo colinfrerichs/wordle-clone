@@ -4,11 +4,11 @@ import BoardRow from "../board-row/board-row.component";
 
 import "./board.styles.css";
 
-const Board = ({ guesses, secretWord }) => {
+const Board = ({ guesses }) => {
   return (
     <div className="board-container">
-      {guesses.map((guess, row) => (
-        <BoardRow key={`row-${row}`} guess={guess} secretWord={secretWord} />
+      {guesses.map(({ letters, styles }, row) => (
+        <BoardRow key={`row-${row}`} letters={letters} styles={styles} />
       ))}
     </div>
   );
