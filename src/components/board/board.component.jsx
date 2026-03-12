@@ -2,18 +2,16 @@ import { memo } from "react";
 
 import BoardRow from "../board-row/board-row.component";
 
-/*
-  so a board is composed of rows - so, it should have 6 rows to mimic the game.
-*/
+import "./board.styles.css";
 
-const Board = () => {
+const Board = ({ guesses, secretWord }) => {
   return (
     <div className="board-container">
-      {Array.from({ length: 6 }).map((_, idx) => (
-        <div key={`row-${idx}`} className="row-container">
-          <BoardRow />
-        </div>
-      ))}
+      <div className="row-container">
+        {guesses.map((guess, row) => (
+          <BoardRow key={`row-${row}`} guess={guess} secretWord={secretWord} />
+        ))}
+      </div>
     </div>
   );
 };

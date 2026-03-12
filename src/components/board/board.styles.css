@@ -1,0 +1,11 @@
+.board-container {
+  display: grid;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

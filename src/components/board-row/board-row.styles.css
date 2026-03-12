@@ -1,0 +1,6 @@
+.cell-container {
+  display: grid;
+  grid-template-columns: repeat(5, 62px);
+  gap: 5px;
+  margin-bottom: 5px;
+}
